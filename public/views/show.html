@@ -7,8 +7,9 @@
 		<tr ng-repeat="user in users">
 			<td>{{user.firstName}}</td>
 			<td>{{user.lastName}}</td>
-			<td><button ng-click="deleteUser(user)">delete</button></td>
+			<td><button ng-click="loadUpdate(user)" class="btn btn-warning">update</button></td>
+			<td><button ng-click="deleteUser(user)" class="btn btn-danger">delete</button></td>
 		</tr>
 	</table>
-	<button ui-sref="add">Add a user</button>
+	<button ui-sref="add" class="btn btn-success">Add a user</button>
 </div>

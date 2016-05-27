@@ -1,6 +1,7 @@
 <div class="container">
+	<form ng-submit="save(user)">
     <input type="text" ng-model="user.firstName" placeholder="first name">
     <input type="text" ng-model="user.lastName" placeholder="last name">
-    <button ng-click="save(user)">save</button>
-    <button ng-click="update(user)">update</button>
+    <button type="submit" class="btn btn-success">save</button>
+    </form>
 </div>

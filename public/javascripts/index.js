@@ -9,8 +9,9 @@ angular.module('crud', ['ui.router', 'crud.controllers'])
             controller: 'AddCtrl',
             templateUrl: 'views/add.html'
         }).state('update', {
-            url: '/update',
-            controller: 'UpdateCtrl'
+            url: '/update/:uid',
+            controller: 'UpdateCtrl',
+            templateUrl:  'views/update.html'
         })
     }])
     .run(['$state', function($state) {
