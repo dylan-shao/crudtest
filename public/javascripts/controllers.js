@@ -1,7 +1,7 @@
 (function() {
 
     angular.module('crud.controllers', ['ui.router'])
-        .controller('GetCtrl', ['$scope', '$http','$state', function($scope, $http,$state) {
+        .controller('GetCtrl', ['$scope', '$http', '$state', function($scope, $http, $state) {
             $scope.getUsers = function() {
 
                 return $http.get('/api/get').then(function(resp) {
@@ -11,13 +11,13 @@
             $scope.loadUpdate = function(user) {
                 console.log(user);
                 $state.go('update', {
-                    uid:user._id
+                    uid: user._id
                 })
             }
 
             $scope.deleteUser = function(data) {
                 console.log(data)
-                return $http.delete('/api/delete/'+data._id).then(function(resp) {
+                return $http.delete('/api/delete/' + data._id).then(function(resp) {
                     $scope.getUsers();
                 })
 
@@ -35,15 +35,14 @@
             }
 
         }])
+        .controller('UpdateCtrl', ['$scope', '$http', '$state', '$stateParams', function($scope, $http, $state, $stateParams) {
 
-        .controller('UpdateCtrl', ['$scope', '$http', '$state', '$stateParams',function($scope, $http, $state,$stateParams) {
-            
-                //$scope.user._id = $stateParams.uid;
-                //$scope.user.id=$stateParams.uid;
-                $scope.uid = $stateParams.uid;
-                console.log('user._id in update: '+ $scope.uid);
-                $scope.update = function(user) {
-                $http.put('/api/update/'+$scope.uid, user)
+            //$scope.user._id = $stateParams.uid;
+            //$scope.user.id=$stateParams.uid;
+            $scope.uid = $stateParams.uid;
+            console.log('user._id in update: ' + $scope.uid);
+            $scope.update = function(user) {
+                $http.put('/api/update/' + $scope.uid, user)
                     .then(function(resp) {
                         //$scope.users.push(resp.data);
                         $state.go('get');

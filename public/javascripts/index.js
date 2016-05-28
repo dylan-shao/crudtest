@@ -11,7 +11,7 @@ angular.module('crud', ['ui.router', 'crud.controllers'])
         }).state('update', {
             url: '/update/:uid',
             controller: 'UpdateCtrl',
-            templateUrl:  'views/update.html'
+            templateUrl: 'views/update.html'
         })
     }])
     .run(['$state', function($state) {
