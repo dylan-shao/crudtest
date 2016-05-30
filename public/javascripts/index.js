@@ -1,4 +1,4 @@
-angular.module('crud', ['ui.router', 'crud.controllers'])
+angular.module('crud', ['ui.router', 'ngResource','crud.controllers'])
     .config(['$stateProvider', function($stateProvider) {
         $stateProvider.state('get', {
             url: '/',

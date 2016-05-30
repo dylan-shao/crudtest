@@ -1,11 +1,13 @@
 (function() {
 
-    angular.module('crud.controllers', ['ui.router'])
-        .controller('GetCtrl', ['$scope', '$http','$state', function($scope, $http,$state) {
+    angular.module('crud.controllers', ['ui.router','ngResource'])
+        .controller('GetCtrl', ['$scope', '$http','$state', '$resource', function($scope, $http,$state, $resource) {
+            var collection = $resource('/api/get');
             $scope.getUsers = function() {
 
-                return $http.get('/api/get').then(function(resp) {
-                    $scope.users = resp.data;
+                return collection.query(function(resp) {
+                    console.log(resp);
+                    $scope.users = resp;
                 })
             };
             $scope.loadUpdate = function(user) {
@@ -15,20 +17,22 @@
                 })
             }
 
+
             $scope.deleteUser = function(data) {
+                var coll_delete = $resource('/api/delete/'+data._id);
                 console.log(data)
-                return $http.delete('/api/delete/'+data._id).then(function(resp) {
+                return coll_delete.remove({id:data._id},function(resp) {
                     $scope.getUsers();
                 })
 
             }
             $scope.getUsers();
         }])
-        .controller('AddCtrl', ['$scope', '$http', '$state', function($scope, $http, $state) {
+        .controller('AddCtrl', ['$scope', '$http', '$state', '$resource', function($scope, $http, $state, $resource) {
+            var collection = $resource('/api/add');
             $scope.save = function(data) {
                 console.log('we');
-                $http.post('/api/add', data)
-                    .then(function(resp) {
+                collection.save(data, function(resp) {
                         //$scope.users.push(resp.data);
                         $state.go('get');
                     })
@@ -36,18 +40,14 @@
 
         }])
 
-        .controller('UpdateCtrl', ['$scope', '$http', '$state', '$stateParams',function($scope, $http, $state,$stateParams) {
-            
-                //$scope.user._id = $stateParams.uid;
-                //$scope.user.id=$stateParams.uid;
-                $scope.uid = $stateParams.uid;
-                console.log('user._id in update: '+ $scope.uid);
-                $scope.update = function(user) {
-                $http.put('/api/update/'+$scope.uid, user)
-                    .then(function(resp) {
-                        //$scope.users.push(resp.data);
+        .controller('UpdateCtrl', ['$scope', '$http', '$state', '$stateParams', '$resource', function($scope, $http, $state,$stateParams, $resource) {
+                
+            var coll_update = $resource('/api/update/'+$stateParams.uid,{id: "@_id"}, {update: {method: "PUT"}});
+                console.log('user._id in update: '+ $stateParams.uid);
+            $scope.update = function(user) {
+                coll_update.update(user, function(){
                         $state.go('get');
-                    })
+            })
             };
 
         }])
