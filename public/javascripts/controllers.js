@@ -42,7 +42,8 @@
 
         .controller('UpdateCtrl', ['$scope', '$http', '$state', '$stateParams', '$resource', function($scope, $http, $state,$stateParams, $resource) {
                 
-            var coll_update = $resource('/api/update/'+$stateParams.uid,{id: "@_id"}, {update: {method: "PUT"}});
+            var coll_update = $resource('/api/update/'+$stateParams.uid, {}, {update: {method: "PUT"}});
+            //var coll_update = $resource('/api/update/:uid',{uid: $stateParams.uid}, {update: {method: "PUT"}});
                 console.log('user._id in update: '+ $stateParams.uid);
             $scope.update = function(user) {
                 coll_update.update(user, function(){
