@@ -1,5 +1,11 @@
-define([], function() {
-    function getController($scope, $http, $state) {
+define([
+    '../../module',
+    '../../namespaceCrud',
+
+], function(module, namespace) {
+    var name = namespace + '.GetController';
+    var dependencies = ['$scope', '$http', '$state'];
+    var controller = function($scope, $http, $state) {
         $scope.getUsers = function() {
 
             return $http.get('/api/get').then(function(resp) {
@@ -21,8 +27,6 @@ define([], function() {
 
         }
         $scope.getUsers();
-    }
-
-    getController.$inject = ['$scope', '$http', '$state'];
-    return getController;
+    };
+    module.controller(name, dependencies.concat(controller));
 });

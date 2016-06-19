@@ -1,5 +1,11 @@
-define([], function() {
-    function updateController($scope, $http, $state, $stateParams) {
+define([
+    '../../module',
+    '../../namespaceCrud',
+
+], function(module, namespace) {
+    var name = namespace + '.UpdateController';
+    var dependencies = ['$scope', '$http', '$state','$stateParams'];
+    var controller = function($scope, $http, $state, $stateParams) {
         $scope.uid = $stateParams.uid;
         console.log('user._id in update: ' + $scope.uid);
         $scope.update = function(user) {
@@ -10,7 +16,6 @@ define([], function() {
                 })
         };
     }
-
-    updateController.$inject = ['$scope', '$http', '$state','$stateParams'];
-    return updateController;
+    module.controller(name, dependencies.concat(controller));
 });
+

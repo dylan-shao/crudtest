@@ -9,8 +9,8 @@ require.config({
     // packages: ["account"],
      
     paths: {
-        angular: "libs/angular/angular",
-        uiRoute: "libs/angular-ui-router/release/angular-ui-router"
+        angular: "/public/libs/angular/angular",
+        uiRoute: "/public/libs/angular-ui-route/release/angular-ui-route"
     },
     shim: {
         angular: {
